@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/logo.svg';
 import './style.css'
+import { QuizService } from '../../services/api'
 
 function HomePage() {
+  useState(()=>{
+    QuizService.getCategories()
+  },[])
   return (
     <div className="App">
       <header className="App-header">
