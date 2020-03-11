@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuizService } from '../../services/api'
-import { PageContainer, QuestionContainer, RowContainer } from './style';
-import { Label } from '../../theme/globalStyle';
+import { ScreenTitle, SimpleText, CloseText,  PageContainer, QuestionContainer, RowContainer } from './style';
 
 function QuestionPage() {
 
@@ -41,19 +40,19 @@ function QuestionPage() {
   return (
     <PageContainer>
       <RowContainer>
-        <Label>História</Label>           
-        <Label>Fechar</Label>           
+        <ScreenTitle>História</ScreenTitle>           
+        <CloseText>Fechar</CloseText>           
       </RowContainer>
       {
         load &&
         <QuestionContainer>
           <RowContainer>
-            <Label>Questão 1</Label>       
-            <Label>Dificil</Label>
+            <SimpleText color='black' bold >Questão 1</SimpleText>       
+            <SimpleText size='xxs' bold >Dificil</SimpleText>
           </RowContainer>
-            <Label>{questions[currentIndex].question}</Label>           
+            <SimpleText size='sm'>{questions[currentIndex].question}</SimpleText>           
             {
-              allAnswers.map(e => <Label>{e}</Label>)
+              allAnswers.map(e => <SimpleText size='sm'>{e}</SimpleText>)
             }
         </QuestionContainer>
       }

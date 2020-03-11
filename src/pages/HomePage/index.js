@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import { QuizService } from '../../services/api'
 import { CategoryButton } from '../../components';
-import { PageContainer, ItemsContainer, PageContent } from './style';
-import { BigLabel } from '../../theme/globalStyle';
+import { PageContainer, ItemsContainer, ScreenTitle } from './style';
+
 
 function HomePage() {
 
@@ -29,7 +29,7 @@ function HomePage() {
 
   return (
     <PageContainer>
-      <BigLabel>Categorias</BigLabel>
+      <ScreenTitle>Categorias</ScreenTitle>
       <ItemsContainer>
         {
           categories.map( item =>

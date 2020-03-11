@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Label } from '../../theme/globalStyle'
 
 export const PageContainer = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ export const QuestionContainer = styled.div`
   justify-content: flex-start;
   margin-top: 0px;
   width: calc(100% - 64px);
-  background-color: ${({theme}) => theme.color.primary};
+  background-color: ${({theme}) => theme.color.white};
   border: 1px solid ${({theme}) => theme.color.background};
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
@@ -35,9 +36,26 @@ export const AnswerContainer = styled.div`
   justify-content: flex-start;
   margin-top: 0px;
   width: calc(100% - 64px);
-  background-color: ${({theme}) => theme.color.primary};
+  background-color: ${({theme}) => theme.color.white};
   border: 1px solid ${({theme}) => theme.color.background};
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
   padding: 12px 32px;
+`
+
+export const ScreenTitle = styled(Label)`
+  font-size: ${({theme}) => theme.fontSize.lg};
+  font-weight: 500;
+`
+
+export const SimpleText = styled(Label)`
+  font-size: ${({theme, size}) => theme.fontSize[size || 'sm']};
+  color: ${({color}) => color || undefined };
+  font-weight: ${({bold}) => bold ? 600 : undefined};
+`
+
+export const CloseText = styled(Label)`
+  font-size: ${({theme, size}) => theme.fontSize.xs};
+  font-weight: 500;
+  color: ${({theme}) => theme.color.gray};
 `

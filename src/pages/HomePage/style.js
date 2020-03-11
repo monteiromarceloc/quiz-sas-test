@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Label } from '../../theme/globalStyle'
 
 export const PageContainer = styled.div`
   display: flex;
@@ -15,4 +16,9 @@ export const ItemsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 32px;
+`
+
+export const ScreenTitle = styled(Label)`
+  font-size: ${({theme}) => theme.fontSize.xxl};
+  font-weight: 500;
 `

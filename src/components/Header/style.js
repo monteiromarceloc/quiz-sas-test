@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Label } from '../../theme/globalStyle'
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -11,10 +12,10 @@ export const HeaderContainer = styled.div`
   margin: 0 0 10px;
 `
 
-export const HeaderLabel = styled.h1`
+export const HeaderLabel = styled(Label)`
   display: flex;
-  color: #fff;
-  font-size: 18px;
-  margin: 16px;
   align-self: flex-end;
+  color: ${({theme}) => theme.color.white};
+  font-weight: 600;
+  margin: 16px;
 `
