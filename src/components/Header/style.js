@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   justify-content: flex-start;
   height: auto;
   width: 100%;
-  background: #343C58;
+  background: ${({theme}) => theme.color.header};
   border: 0;
   margin: 0 0 10px;
 `

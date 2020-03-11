@@ -9,8 +9,8 @@ export const ButtonContainer = styled.button`
   height: 104px;
   width: 200px;
   min-width: 160px;
-  background-color: #fff;
-  border: 1px solid #E4E4E6;
+  background-color: ${({theme}) => theme.color.primary};
+  border: 1px solid ${({theme}) => theme.color.background};
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
 `

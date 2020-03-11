@@ -25,28 +25,21 @@ function HomePage() {
 
   if (toQuestion) return <Redirect to='/question' />
 
+  if (!categories || categories.length < 1) return <></>
 
   return (
     <PageContainer>
-      {
-        categories.length > 1 ?
-          <PageContent>
-            <BigLabel>Categorias</BigLabel>
-            <ItemsContainer>
-              {
-                categories.map( item =>
-                  <CategoryButton
-                    label={item.name}
-                    onClick={handleClick(item.id)}
-                  />
-                )
-              }
-            </ItemsContainer>
-          </PageContent>
-        :
-        // Spínner
-        <></>
-      }
+      <BigLabel>Categorias</BigLabel>
+      <ItemsContainer>
+        {
+          categories.map( item =>
+            <CategoryButton
+              label={item.name}
+              onClick={handleClick(item.id)}
+            />
+          )
+        }
+      </ItemsContainer>
     </PageContainer>
   );
 }

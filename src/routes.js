@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Header } from './components'
+import { Header, AppContent } from './components'
 import {
   HomePage,
   QuestionPage
@@ -9,10 +9,12 @@ import {
 function App(){
   return( <>
     <Header title='Test Dev Frontend' />
-    <Switch>
-      <Route exact path='/'><HomePage/></Route>
-      <Route exact path='/question'><QuestionPage/></Route>
-    </Switch>
+    <AppContent>
+      <Switch>
+        <Route exact path='/'><HomePage/></Route>
+        <Route exact path='/question'><QuestionPage/></Route>
+      </Switch>
+    </AppContent>
   </>)
 }
 
