@@ -7,7 +7,7 @@ import { PageContainer, ItemsContainer, ScreenTitle } from './style';
 import { setCategory } from '../../store/MainReducer';
 
 function HomePage(props) {
-  const { dispatch, currentQuestion } = props
+  const { dispatch, hasQuestion } = props
   const [categories, setCategories] = useState([])
 
   useEffect(()=>{
@@ -19,13 +19,13 @@ function HomePage(props) {
     setCategories(data)
   }
 
-  const handleClick = (id) => async () => {
+  const handleClick = (item) => async () => {
     // TODO: spinner
-    dispatch(setCategory(id))
-    await QuizService.getQuestion(dispatch)(id)
+    dispatch(setCategory(item))
+    await QuizService.getQuestion(dispatch)(item.id)
   }
 
-  if (currentQuestion.length > 0) return <Redirect to='/question' />
+  if (hasQuestion) return <Redirect to='/question' />
 
   if (!categories || categories.length < 1) return <></>
 
@@ -37,7 +37,7 @@ function HomePage(props) {
           categories.map( item =>
             <CategoryButton
               label={item.name}
-              onClick={handleClick(item.id)}
+              onClick={handleClick(item)}
             />
           )
         }
@@ -47,7 +47,7 @@ function HomePage(props) {
 }
 
 const mapStateToProps = ({ MainReducer }) => ({
-  currentQuestion: MainReducer.currentQuestion,
+  hasQuestion: MainReducer.currentQuestion.length > 0,
 });
 
 export default connect(mapStateToProps)(HomePage);

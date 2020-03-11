@@ -1,9 +1,9 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
 
-export const setCategory = (id) => ({
+export const setCategory = (data) => ({
   type: SET_CATEGORY,
-  payload: id,
+  payload: data,
 });
 
 export const setNewQuestion = (data) => ({
