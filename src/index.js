@@ -9,6 +9,8 @@ import { ThemeProvider } from 'styled-components';
 import store from './store'
 import { theme, GlobalStyle } from './theme/globalStyle'
 
+// update window size: https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

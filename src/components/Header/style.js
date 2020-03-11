@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-export const HeaderContainer = styled.button`
-  margin: 0;
+export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -9,6 +8,7 @@ export const HeaderContainer = styled.button`
   width: 100%;
   background: #343C58;
   border: 0;
+  margin: 0 0 10px;
 `
 
 export const HeaderLabel = styled.h1`

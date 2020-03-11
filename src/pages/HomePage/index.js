@@ -1,19 +1,48 @@
-import React, { useState } from 'react';
-import logo from '../../assets/logo.svg';
-import './style.css'
+import React, { useState, useEffect } from 'react';
 import { QuizService } from '../../services/api'
-import CategoryButton from '../../components/CategoryButton';
+import { CategoryButton } from '../../components';
+import { PageContainer, ItemsContainer, PageContent } from './style';
+import { BigLabel } from '../../theme/globalStyle';
 
 function HomePage() {
-  useState(()=>{
-    QuizService.getCategories()
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(()=>{
+    fetchCategories();
   },[])
+
+  const fetchCategories = async () => {
+    const data = await QuizService.getCategories()
+    setCategories(data)
+  }
+
+  const handlePress = (id) => () => {
+    
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <CategoryButton />
-      </header>
-    </div>
+    <PageContainer>
+      {
+        categories.length > 1 ?
+          <PageContent>
+            <BigLabel>Categorias</BigLabel>
+            <ItemsContainer>
+              {
+                categories.map( item =>
+                  <CategoryButton
+                    label={item.name}
+                    onPress={handlePress(item.id)}
+                  />
+                )
+              }
+            </ItemsContainer>
+          </PageContent>
+        :
+        // Spínner
+        <></>
+      }
+    </PageContainer>
   );
 }
 
