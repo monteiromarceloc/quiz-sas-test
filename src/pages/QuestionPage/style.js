@@ -30,17 +30,19 @@ export const QuestionContainer = styled.div`
   padding: 12px 32px;
 `
 
-export const AnswerContainer = styled.div`
+export const AnswerContainer = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-top: 0px;
-  width: calc(100% - 64px);
+  width: calc(100% - 32px);
   background-color: ${({theme}) => theme.color.white};
-  border: 1px solid ${({theme}) => theme.color.background};
+  border: ${({theme, highlight}) => highlight ? `3px solid ${theme.color.primary}` : `1px solid ${theme.color.background}`};
   border-radius: 8px;
-  box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
-  padding: 12px 32px;
+  box-shadow: 0px 1px 2px rgba(52, 60, 88, 0.4);
+  padding: 0px 16px;
+  margin-bottom: 16px;
+  outline: none;
 `
 
 export const ScreenTitle = styled(Label)`

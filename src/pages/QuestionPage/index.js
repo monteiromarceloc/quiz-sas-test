@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuizService } from '../../services/api'
-import { ScreenTitle, SimpleText, CloseText,  PageContainer, QuestionContainer, RowContainer } from './style';
+import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
 
 function QuestionPage() {
 
@@ -8,6 +8,8 @@ function QuestionPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [allAnswers, setAllAnswers] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(-1)
+  const [selectedAnswer, setSelectedAnswer] = useState(-1)
+  const [questionText, setQuestionText] = useState(-1)
   const [load, setLoad] = useState(false)
 
   useEffect(()=>{
@@ -19,8 +21,8 @@ function QuestionPage() {
   },[questions, currentIndex])
 
   const fetchQuestions = async () => {
-    const data = await QuizService.getQuestions()
-    setQuestions(data);
+    // const data = await QuizService.getQuestion()()
+    // setQuestions(data);
   }
 
   const nextQuestion = () => {
@@ -33,8 +35,16 @@ function QuestionPage() {
       newAnswers.splice(index, 0, currQuest.correct_answer)
       setCorrectAnswer(index)
       setAllAnswers(newAnswers)
+      // TODO: convert ASCII Codes
+      const decoded = decodeURI(currQuest.question)
+      setQuestionText(decoded)
       setLoad(true)
     }
+  }
+
+  const handleSelect = (index) => (e) => {
+    e.preventDefault()
+    setSelectedAnswer(index)
   }
 
   return (
@@ -50,9 +60,16 @@ function QuestionPage() {
             <SimpleText color='black' bold >Questão 1</SimpleText>       
             <SimpleText size='xxs' bold >Dificil</SimpleText>
           </RowContainer>
-            <SimpleText size='sm'>{questions[currentIndex].question}</SimpleText>           
+            <SimpleText size='sm'>{questionText}</SimpleText>           
             {
-              allAnswers.map(e => <SimpleText size='sm'>{e}</SimpleText>)
+              allAnswers.map((item, index) => 
+                <AnswerContainer
+                  onClick={handleSelect(index)}
+                  highlight={index === selectedAnswer}  
+                >
+                  <SimpleText size='sm'>{item}</SimpleText>
+                </AnswerContainer>
+              )
             }
         </QuestionContainer>
       }

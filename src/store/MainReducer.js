@@ -1,21 +1,35 @@
-export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY';
+export const SET_CATEGORY = 'SET_CATEGORY';
+export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
 
-export const setCurrentCategory = (newCategory) => ({
-  type: SET_CURRENT_CATEGORY,
-  payload: newCategory,
+export const setCategory = (id) => ({
+  type: SET_CATEGORY,
+  payload: id,
 });
 
+export const setNewQuestion = (data) => ({
+  type: SET_NEW_QUESTION,
+  payload: data,
+});
+
+
 const INITIAL_STATE = {
-  currentCategory: 0,
+  selectedCategory: -1,
+  currentQuestion: [],
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
+  console.log('redux: ', action.payload)
   switch (action.type) {
-    case SET_CURRENT_CATEGORY:
-        return {
-          ...state,
-          currentCategory: action.payload
-        };
+    case SET_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.payload
+      };
+    case SET_NEW_QUESTION:
+      return {
+        ...state,
+        currentQuestion: action.payload
+      };
     default:
       return state;
   }
