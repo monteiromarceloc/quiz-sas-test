@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom'
 import { QuizService } from '../../services/api'
 import { CategoryButton } from '../../components';
 import { PageContainer, ItemsContainer, PageContent } from './style';
@@ -7,6 +8,7 @@ import { BigLabel } from '../../theme/globalStyle';
 function HomePage() {
 
   const [categories, setCategories] = useState([])
+  const [toQuestion, setToQuestion] = useState(false)
 
   useEffect(()=>{
     fetchCategories();
@@ -17,9 +19,12 @@ function HomePage() {
     setCategories(data)
   }
 
-  const handlePress = (id) => () => {
-    
+  const handleClick = (id) => () => {
+    setToQuestion(true)
   }
+
+  if (toQuestion) return <Redirect to='/question' />
+
 
   return (
     <PageContainer>
@@ -32,7 +37,7 @@ function HomePage() {
                 categories.map( item =>
                   <CategoryButton
                     label={item.name}
-                    onPress={handlePress(item.id)}
+                    onClick={handleClick(item.id)}
                   />
                 )
               }

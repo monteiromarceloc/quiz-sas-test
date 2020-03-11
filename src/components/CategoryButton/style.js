@@ -5,7 +5,7 @@ export const ButtonContainer = styled.button`
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-start;
-  margin: 8px;
+  margin: 12px;
   height: 104px;
   width: 200px;
   min-width: 160px;
