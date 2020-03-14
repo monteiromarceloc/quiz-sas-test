@@ -1,5 +1,6 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
+export const SET_SHOW_MODAL = 'SET_SHOW_MODAL';
 
 export const setCategory = (data) => ({
   type: SET_CATEGORY,
@@ -11,12 +12,17 @@ export const setNewQuestion = (data) => ({
   payload: data,
 });
 
+export const setShowModal = (data) => ({
+  type: SET_SHOW_MODAL,
+  payload: data,
+});
 
 const INITIAL_STATE = {
   selectedCategory: {},
   currentQuestion: [],
   questionCounter: 0,
   lastAnswer: '', // c: correct, w: wrong
+  showModal: false,
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -32,6 +38,11 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         currentQuestion: action.payload,
         questionCounter: state.questionCounter + 1
+      };
+    case SET_SHOW_MODAL:
+      return {
+        ...state,
+        showModal: action.payload,
       };
     default:
       return state;

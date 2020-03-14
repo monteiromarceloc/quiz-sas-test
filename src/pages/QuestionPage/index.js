@@ -6,9 +6,10 @@ import { QuizService } from '../../services/api'
 import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
 import { BasicButton } from '../../components'
 import { formatText } from '../../utils';
+import { setShowModal } from '../../store/MainReducer';
 
 function QuestionPage(props) {
-  const { currentQuestion, questionCounter, selectedCategory, lastAnswer } = props
+  const { dispatch, currentQuestion, questionCounter, selectedCategory, lastAnswer } = props
   
   const [allAnswers, setAllAnswers] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(-1)
@@ -37,7 +38,8 @@ function QuestionPage(props) {
 
   const handleAnswer = (e) => {
     e.preventDefault()
-    if (correctAnswer === selectedAnswer){
+    const didHit = correctAnswer === selectedAnswer
+    if (didHit){
       console.log('acertou')
       if (lastAnswer === 'c'){
         console.log('levelup')
@@ -48,6 +50,7 @@ function QuestionPage(props) {
         console.log('leveldown')
       }
     }
+    dispatch(setShowModal(true))
   }
 
   if (!currentQuestion) return <Redirect to='/' />
