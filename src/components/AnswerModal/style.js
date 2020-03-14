@@ -1,22 +1,33 @@
 import styled from 'styled-components'
+import { Label } from '../../theme/globalStyle'
 
-export const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
+export const ModalBox = styled.div`
+  position: absolute;
+  width: 328px;
+  background-color: #fff;
+  border: 3px solid ${({correct}) => correct ? '#32CB82' : '#FF4F4F' };
+  border-radius: 8px;
+  padding: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+export const ModalDialog = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: rgba(30, 33, 36, 0.5);
 `
 
-export const ModalBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 90%;
-  max-width: 1000px;
+export const ModalIcon = styled.img`
+  height: 50px;
+  margin-bottom: 14;
 `
 
-// TODO: responsive width
+export const ModalLabel = styled(Label)`
+  font-size: ${({theme}) => theme.fontSize.lg};
+  font-weight: 500;
+  margin-bottom: 18px;
+`
