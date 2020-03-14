@@ -42,7 +42,7 @@ function QuestionPage(props) {
     dispatch(setShowModal(true, didHit))
     if (didHit && lastAnswer === 'c'){
       console.log('levelup')
-    } else if (!didHit && lastAnswer === 'e'){
+    } else if (!didHit && lastAnswer === 'w'){
       console.log('leveldown')
     } else {
 
@@ -50,6 +50,7 @@ function QuestionPage(props) {
     console.log('here')
     // Preloads question so that next question is ready
     QuizService.getQuestion(dispatch)(selectedCategory.id, 'medium')
+    setSelectedAnswer(-1)
   }
 
   if (!currentQuestion) return <Redirect to='/' />

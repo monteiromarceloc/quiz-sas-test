@@ -5,7 +5,7 @@ import correctIcon from '../../assets/correct.png'
 import Modal from '@material-ui/core/Modal';
 import { ModalDialog, ModalIcon, ModalLabel, ModalBox } from './style';
 import BasicButton from '../BasicButton';
-import { setShowModal } from '../../store/MainReducer'
+import { setShowModal, pushQuestion } from '../../store/MainReducer'
 
 function AnswerModal(props) {
   const { correct, visible, dispatch } = props
@@ -13,8 +13,7 @@ function AnswerModal(props) {
   const onHide = () => dispatch(setShowModal(false))
 
   const handleNext = () => {
-    // set PreLoadToCurrent
-    // set new lastAnswer
+    dispatch(pushQuestion())
     onHide()
   }
 

@@ -1,6 +1,7 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
 export const SET_PRE_QUESTION = 'SET_PRE_QUESTION';
+export const PUSH_QUESTION = 'PUSH_QUESTION';
 export const SET_SHOW_MODAL = 'SET_SHOW_MODAL';
 
 export const setCategory = (data) => ({
@@ -18,6 +19,10 @@ export const setPreLoadedQuestion = (data) => ({
   payload: data,
 });
 
+export const pushQuestion = () => ({
+  type: PUSH_QUESTION,
+});
+
 export const setShowModal = (open, didHit) => ({
   type: SET_SHOW_MODAL,
   payload: {
@@ -33,6 +38,7 @@ const INITIAL_STATE = {
   questionCounter: 0,
   lastAnswer: '', // c: correct, w: wrong
   showModal: false,
+  didHit: false,
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -59,6 +65,14 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         showModal: action.payload.open,
         didHit: action.payload.didHit,
+      };
+    case PUSH_QUESTION:
+      return {
+        ...state,
+        currentQuestion: state.preLoadedQuestion,
+        preLoadedQuestion: [],
+        questionCounter: state.questionCounter + 1,
+        lastAnswer: state.didHit ? 'c' : 'w',
       };
     default:
       return state;
