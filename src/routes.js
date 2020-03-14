@@ -27,6 +27,7 @@ function App(props){
     <AnswerModal
       visible={showModal}
       onHide={() => dispatch(setShowModal(false))}
+      correct={true} // TODO: show real answer
     />
   </>)
 }
