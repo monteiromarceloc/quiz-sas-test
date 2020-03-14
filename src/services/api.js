@@ -16,7 +16,6 @@ export const QuizService = {
     try {
       const response = await axios.get(`${BASE_URL}/api.php?category=${id}&amount=1&difficulty=${difficulty}&type=multiple`);
       const { response_code, results } = response.data
-      console.log('response: ', response_code)
       if (response_code === 0) {
         // If difficulty is not passed, we can presume it is the first question
         if (!difficulty) dispatch(setNewQuestion(results))
@@ -24,7 +23,8 @@ export const QuizService = {
         return results[0];
       }
       // TODO: handle responde_code
-      else return false
+      console.log('response: ', response_code)
+      return false
     } catch (error) {
       console.log('getCategorys error: ', error)
     }

@@ -39,17 +39,21 @@ function QuestionPage(props) {
   const handleAnswer = (e) => {
     e.preventDefault()
     const didHit = correctAnswer === selectedAnswer
+    let difficulty = currentQuestion.difficulty
     dispatch(setShowModal(true, didHit))
-    if (didHit && lastAnswer === 'c'){
-      console.log('levelup')
-    } else if (!didHit && lastAnswer === 'w'){
-      console.log('leveldown')
-    } else {
 
+    // Change difficulty
+    if (didHit && lastAnswer === 'c'){
+      if (difficulty === 'easy') difficulty = 'medium'
+      if (difficulty === 'medium') difficulty = 'hard'
+    } else if (!didHit && lastAnswer === 'w'){
+      if (difficulty === 'medium') difficulty = 'easy'
+      if (difficulty === 'hard') difficulty = 'medium'
     }
-    console.log('here')
+    console.log(difficulty)
+    
     // Preloads question so that next question is ready
-    QuizService.getQuestion(dispatch)(selectedCategory.id, 'medium')
+    QuizService.getQuestion(dispatch)(selectedCategory.id, difficulty)
     setSelectedAnswer(-1)
   }
 
