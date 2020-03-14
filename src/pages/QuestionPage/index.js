@@ -4,9 +4,11 @@ import { Redirect } from 'react-router-dom'
 
 import { QuizService } from '../../services/api'
 import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
+import { BasicButton } from '../../components'
+import { formatText } from '../../utils';
 
 function QuestionPage(props) {
-  const { currentQuestion } = props
+  const { currentQuestion, questionCounter, selectedCategory, lastAnswer } = props
   
   const [allAnswers, setAllAnswers] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(-1)
@@ -33,6 +35,21 @@ function QuestionPage(props) {
     setSelectedAnswer(index)
   }
 
+  const handleAnswer = (e) => {
+    e.preventDefault()
+    if (correctAnswer === selectedAnswer){
+      console.log('acertou')
+      if (lastAnswer === 'c'){
+        console.log('levelup')
+      }
+    } else {
+      console.log('errou: ', correctAnswer)
+      if (lastAnswer === 'e'){
+        console.log('leveldown')
+      }
+    }
+  }
+
   if (!currentQuestion) return <Redirect to='/' />
   
   const { question, difficulty } = currentQuestion
@@ -40,15 +57,15 @@ function QuestionPage(props) {
   return (
     <PageContainer>
       <RowContainer>
-        <ScreenTitle>História</ScreenTitle>           
+        <ScreenTitle>{selectedCategory.name}</ScreenTitle>           
         <CloseText>Fechar</CloseText>           
       </RowContainer>
       <QuestionContainer>
         <RowContainer>
-          <SimpleText color='black' bold >Questão 1</SimpleText>       
+          <SimpleText color='black' bold >Questão {questionCounter}</SimpleText>       
           <SimpleText size='xxs' bold >Dificil</SimpleText>
         </RowContainer>
-          <SimpleText size='sm'>{question}</SimpleText>           
+          <SimpleText size='sm'>{formatText( question )}</SimpleText>           
           {
             allAnswers.map((item, index) => 
               <AnswerContainer
@@ -59,6 +76,9 @@ function QuestionPage(props) {
               </AnswerContainer>
             )
           }
+          <RowContainer justify='center'>
+            <BasicButton label='Responder' onClick={handleAnswer}/>
+          </RowContainer>
       </QuestionContainer>
     </PageContainer>
   );
@@ -66,6 +86,9 @@ function QuestionPage(props) {
 
 const mapStateToProps = ({ MainReducer }) => ({
   currentQuestion: MainReducer.currentQuestion[0],
+  questionCounter: MainReducer.questionCounter,
+  selectedCategory: MainReducer.selectedCategory,
+  lastAnswer: MainReducer.lastAnswer,
 });
 
 export default connect(mapStateToProps)(QuestionPage);

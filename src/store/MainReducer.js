@@ -13,8 +13,10 @@ export const setNewQuestion = (data) => ({
 
 
 const INITIAL_STATE = {
-  selectedCategory: -1,
+  selectedCategory: {},
   currentQuestion: [],
+  questionCounter: 0,
+  lastAnswer: '', // c: correct, w: wrong
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -28,7 +30,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_NEW_QUESTION:
       return {
         ...state,
-        currentQuestion: action.payload
+        currentQuestion: action.payload,
+        questionCounter: state.questionCounter + 1
       };
     default:
       return state;

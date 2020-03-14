@@ -22,6 +22,7 @@ export const theme = {
   label: ``
 }
 
+// responsive https://jsramblings.com/how-to-use-media-queries-with-styled-components/
 // TODO: font-family Avenir
 
 export const GlobalStyle = createGlobalStyle`
