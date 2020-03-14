@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setNewQuestion } from '../store/MainReducer';
+import { setNewQuestion, setPreLoadedQuestion } from '../store/MainReducer';
 
 const BASE_URL = 'https://opentdb.com'
 
@@ -12,12 +12,15 @@ export const QuizService = {
       console.log('getCategorys error: ', error)
     }
   },
-  getQuestion: (dispatch, onSucess, onFailure) => async (id, ) => {
+  getQuestion: (dispatch, onSucess, onFailure) => async (id, difficulty='medium') => {
     try {
-      const response = await axios.get(`${BASE_URL}/api.php?category=${id}&amount=1&difficulty=medium&type=multiple`);
+      const response = await axios.get(`${BASE_URL}/api.php?category=${id}&amount=1&difficulty=${difficulty}&type=multiple`);
       const { response_code, results } = response.data
+      console.log('response: ', response_code)
       if (response_code === 0) {
-        dispatch(setNewQuestion(results))
+        // If difficulty is not passed, we can presume it is the first question
+        if (!difficulty) dispatch(setNewQuestion(results))
+        else dispatch(setPreLoadedQuestion(results))
         return results[0];
       }
       // TODO: handle responde_code

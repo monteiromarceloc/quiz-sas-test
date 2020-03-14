@@ -39,18 +39,17 @@ function QuestionPage(props) {
   const handleAnswer = (e) => {
     e.preventDefault()
     const didHit = correctAnswer === selectedAnswer
-    if (didHit){
-      console.log('acertou')
-      if (lastAnswer === 'c'){
-        console.log('levelup')
-      }
+    dispatch(setShowModal(true, didHit))
+    if (didHit && lastAnswer === 'c'){
+      console.log('levelup')
+    } else if (!didHit && lastAnswer === 'e'){
+      console.log('leveldown')
     } else {
-      console.log('errou: ', correctAnswer)
-      if (lastAnswer === 'e'){
-        console.log('leveldown')
-      }
+
     }
-    dispatch(setShowModal(true))
+    console.log('here')
+    // Preloads question so that next question is ready
+    QuizService.getQuestion(dispatch)(selectedCategory.id, 'medium')
   }
 
   if (!currentQuestion) return <Redirect to='/' />
@@ -61,6 +60,7 @@ function QuestionPage(props) {
     <PageContainer>
       <RowContainer>
         <ScreenTitle>{selectedCategory.name}</ScreenTitle>           
+        <CloseText>{correctAnswer}</CloseText>           
         <CloseText>Fechar</CloseText>           
       </RowContainer>
       <QuestionContainer>

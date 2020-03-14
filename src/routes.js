@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { setShowModal } from './store/MainReducer';
 
 import {
   Header,
@@ -24,16 +22,9 @@ function App(props){
         <Route exact path='/question'><QuestionPage/></Route>
       </Switch>
     </AppContent>
-    <AnswerModal
-      visible={showModal}
-      onHide={() => dispatch(setShowModal(false))}
-      correct={true} // TODO: show real answer
-    />
+    <AnswerModal />
   </>)
 }
 
-const mapStateToProps = ({ MainReducer }) => ({
-  showModal: MainReducer.showModal,
-});
 
-export default connect(mapStateToProps)(App);
+export default App;
