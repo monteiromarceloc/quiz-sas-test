@@ -18,8 +18,7 @@ export const QuizService = {
       const { response_code, results } = response.data
       if (response_code === 0) {
         // If difficulty is not a param, we can presume it is the first question
-        if (!difficulty) dispatch(setNewQuestion(results))
-        else dispatch(setPreLoadedQuestion(results))
+        dispatch(setNewQuestion(results))
         return results[0];
       }
       // TODO: handle responde_code

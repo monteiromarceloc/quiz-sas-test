@@ -19,7 +19,6 @@ export const theme = {
     xs: '14px',
     xxs: '12px',
   },
-  label: ``
 }
 
 // responsive https://jsramblings.com/how-to-use-media-queries-with-styled-components/

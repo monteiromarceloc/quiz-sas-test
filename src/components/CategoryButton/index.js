@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonContainer, ButtonLabel } from './style'
+import SASLoading from '../SASLoading';
 
 function CategoryButton({onClick, label='Button'}) {
+  const [loading, setLoading] = useState(false)
+  const handleClick = () => {
+    setLoading(true)
+    onClick()
+  }
   return (
-    <ButtonContainer onClick={onClick}>
-      <ButtonLabel>{label}</ButtonLabel>
+    <ButtonContainer onClick={handleClick}>
+      {
+        loading ? <SASLoading dots />
+        : <ButtonLabel>{label}</ButtonLabel>
+      }
     </ButtonContainer>
   );
 }

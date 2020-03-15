@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner'
+
 import { QuizService } from '../../services/api'
-import { CategoryButton } from '../../components';
+import { CategoryButton, SASLoading } from '../../components';
 import { PageContainer, ItemsContainer, ScreenTitle } from './style';
 import { setCategory } from '../../store/MainReducer';
 
@@ -20,28 +22,29 @@ function HomePage(props) {
   }
 
   const handleClick = (item) => async () => {
-    // TODO: spinner
     dispatch(setCategory(item))
     await QuizService.getQuestion(dispatch)(item.id)
   }
 
   if (hasQuestion) return <Redirect to='/question' />
 
-  if (!categories || categories.length < 1) return <></>
-
   return (
     <PageContainer>
       <ScreenTitle>Categorias</ScreenTitle>
-      <ItemsContainer>
-        {
-          categories.map( item =>
-            <CategoryButton
-              label={item.name}
-              onClick={handleClick(item)}
-            />
-          )
-        }
-      </ItemsContainer>
+      {
+        (!categories || categories.length < 1)
+        ? <SASLoading />
+        : <ItemsContainer>
+          {
+            categories.map( item =>
+              <CategoryButton
+                label={item.name}
+                onClick={handleClick(item)}
+              />
+            )
+          }
+        </ItemsContainer>
+      }
     </PageContainer>
   );
 }

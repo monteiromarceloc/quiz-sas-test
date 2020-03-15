@@ -1,6 +1,6 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
-export const SET_PRE_QUESTION = 'SET_PRE_QUESTION';
+export const SET_LAST_ANSWER = 'SET_LAST_ANSWER';
 export const PUSH_QUESTION = 'PUSH_QUESTION';
 export const SET_SHOW_MODAL = 'SET_SHOW_MODAL';
 export const FINISH_GAME = 'FINISH_GAME';
@@ -15,13 +15,9 @@ export const setNewQuestion = (data) => ({
   payload: data,
 });
 
-export const setPreLoadedQuestion = (data) => ({
-  type: SET_PRE_QUESTION,
+export const setLastAnswer = (data) => ({
+  type: SET_LAST_ANSWER,
   payload: data,
-});
-
-export const pushQuestion = () => ({
-  type: PUSH_QUESTION,
 });
 
 export const setShowModal = (open, didHit) => ({
@@ -58,26 +54,18 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentQuestion: action.payload,
-        questionCounter: state.questionCounter + 1
+        questionCounter: state.questionCounter + 1,
       };
-    case SET_PRE_QUESTION:
+    case SET_LAST_ANSWER:
       return {
         ...state,
-        preLoadedQuestion: action.payload,
+        lastAnswer: action.payload
       };
     case SET_SHOW_MODAL:
       return {
         ...state,
         showModal: action.payload.open,
         didHit: action.payload.didHit,
-      };
-    case PUSH_QUESTION:
-      return {
-        ...state,
-        currentQuestion: {...state.preLoadedQuestion},
-        preLoadedQuestion: [],
-        questionCounter: state.questionCounter + 1,
-        lastAnswer: state.didHit ? 'c' : 'w',
       };
       case FINISH_GAME:
         return {

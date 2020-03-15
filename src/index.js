@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import { store, persistor } from './store'
 import { theme, GlobalStyle } from './theme/globalStyle'

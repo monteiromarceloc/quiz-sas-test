@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
+import Loader from 'react-loader-spinner'
 
 import { QuizService } from '../../services/api'
 import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
-import { BasicButton } from '../../components'
+import { BasicButton, SASLoading } from '../../components'
 import { formatText } from '../../utils';
 import { setShowModal } from '../../store/MainReducer';
 import { pushAnswerLog } from '../../store/ResultsReducer';
@@ -25,7 +26,7 @@ function QuestionPage(props) {
     if(currentQuestion) {
       const { correct_answer, incorrect_answers } = currentQuestion
       const newAnswers = [...incorrect_answers]
-      const index = Math.floor(Math.random() * newAnswers.length)
+      const index = Math.floor(Math.random() * (newAnswers.length+1))
       newAnswers.splice(index, 0, correct_answer)
       setCorrectAnswer(index)
       setAllAnswers(newAnswers)
@@ -33,13 +34,11 @@ function QuestionPage(props) {
     }
   }
 
-  const handleSelect = (index) => (e) => {
-    e.preventDefault()
+  const handleSelect = (index) => () => {
     setSelectedAnswer(index)
   }
 
-  const handleAnswer = (e) => {
-    e.preventDefault()
+  const handleAnswer = () => {
     const didHit = correctAnswer === selectedAnswer
     let difficulty = currentQuestion.difficulty
     const payload = {
@@ -51,23 +50,11 @@ function QuestionPage(props) {
     }
     dispatch(pushAnswerLog(payload))
     dispatch(setShowModal(true, didHit))
-
-    // Change difficulty
-    if (didHit && lastAnswer === 'c'){
-      if (difficulty === 'easy') difficulty = 'medium'
-      if (difficulty === 'medium') difficulty = 'hard'
-    } else if (didHit === false && lastAnswer === 'w'){
-      if (difficulty === 'medium') difficulty = 'easy'
-      if (difficulty === 'hard') difficulty = 'medium'
-    }
-
-    // Preloads question so that next question is ready
-    QuizService.getQuestion(dispatch)(selectedCategory.id, difficulty)
     setSelectedAnswer(-1)
   }
 
-  if (showingResults) return <Redirect to='/results' />
-  if (!currentQuestion) return <Redirect to='/' />
+  if (showingResults || questionCounter > 10) return <Redirect to='/results' />
+  if (!currentQuestion) return <SASLoading />
 
   const { question, difficulty } = currentQuestion
 
@@ -95,7 +82,7 @@ function QuestionPage(props) {
             )
           }
           <RowContainer justify='center'>
-            <BasicButton label='Responder' onClick={handleAnswer}/>
+            <BasicButton label='Responder' onClick={handleAnswer} disabled={selectedAnswer === -1}/>
           </RowContainer>
       </QuestionContainer>
     </PageContainer>

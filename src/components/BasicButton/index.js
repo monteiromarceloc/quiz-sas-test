@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonContainer, ButtonLabel } from './style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import SASLoading from '../SASLoading';
 
-function BasicButton({onClick, label='Button', icon}) {
+function BasicButton(props) {
+  const { onClick, label='Button', icon, loading, disabled } = props
   return (
-    <ButtonContainer onClick={onClick} icon={icon}>
-      <ButtonLabel>{label}</ButtonLabel>
+    <ButtonContainer onClick={onClick} icon={icon && !loading} disabled={disabled}>
       {
-        icon && <FontAwesomeIcon icon={faArrowRight} color='white' size='lg' />
+        loading ? <SASLoading small />
+        : <>
+          <ButtonLabel>{label}</ButtonLabel>
+          {
+            icon && <FontAwesomeIcon icon={faArrowRight} color='white' size='lg' />
+          }
+        </>
       }
     </ButtonContainer>
   );
