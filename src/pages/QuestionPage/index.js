@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import format from 'date-fns/format'
 
 import { QuizService } from '../../services/api'
 import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
 import { BasicButton } from '../../components'
 import { formatText } from '../../utils';
 import { setShowModal } from '../../store/MainReducer';
+import { pushAnswerLog } from '../../store/ResultsReducer';
 
 function QuestionPage(props) {
   const { dispatch, currentQuestion, questionCounter, selectedCategory, lastAnswer, showingResults } = props
@@ -40,6 +42,14 @@ function QuestionPage(props) {
     e.preventDefault()
     const didHit = correctAnswer === selectedAnswer
     let difficulty = currentQuestion.difficulty
+    const payload = {
+      difficulty,
+      selectedAnswer: allAnswers[selectedAnswer],
+      correctAnswer: currentQuestion.correct_answer,
+      didHit,
+      created_at: format(Date.now(), 'dd/MM/yyyy hh:mm:ss'),
+    }
+    dispatch(pushAnswerLog(payload))
     dispatch(setShowModal(true, didHit))
 
     // Change difficulty
@@ -50,7 +60,6 @@ function QuestionPage(props) {
       if (difficulty === 'medium') difficulty = 'easy'
       if (difficulty === 'hard') difficulty = 'medium'
     }
-    console.log(difficulty)
 
     // Preloads question so that next question is ready
     QuizService.getQuestion(dispatch)(selectedCategory.id, difficulty)

@@ -8,13 +8,25 @@ import { BasicButton } from '../../components';
 
 
 function ResultsPage(props) {
-  const { dispatch, showingResults } = props
+  const { dispatch, showingResults, answerLog } = props
+  
+  const [results, setResults] = useState({})
+
+  useEffect(()=>{
+    const EC = answerLog.filter(e => e.difficulty === 'easy' && e.didHit).length
+    const EW = answerLog.filter(e => e.difficulty === 'easy' && !e.didHit).length
+    const MC = answerLog.filter(e => e.difficulty === 'medium' && e.didHit).length
+    const MW = answerLog.filter(e => e.difficulty === 'medium' && !e.didHit).length
+    const HC = answerLog.filter(e => e.difficulty === 'hard' && e.didHit).length
+    const HW = answerLog.filter(e => e.difficulty === 'hard' && !e.didHit).length
+    setResults({EC, EW, MC, MW, HC, HW, AC: EC+MC+HC, AW: EW+MW+HW})
+  },[])
 
   const handleExit = () => {
     dispatch(reset())
   }
 
-  // if (!showingResults) return <Redirect to='/' />
+  if (!showingResults) return <Redirect to='/' />
 
   return (
     <PageContainer>
@@ -35,11 +47,11 @@ function ResultsPage(props) {
 
         <GrayContainer>
           <NumbersColumn>
-            <CustomLabel size='xl' bold >7</CustomLabel>
+  <CustomLabel size='xl' bold >{results.AC}</CustomLabel>
             <CustomLabel>acertos</CustomLabel>
           </NumbersColumn>
           <NumbersColumn>
-            <CustomLabel size='xl' bold >3</CustomLabel>
+            <CustomLabel size='xl' bold >{results.AW}</CustomLabel>
             <CustomLabel>erros</CustomLabel>
           </NumbersColumn>
         </GrayContainer>
@@ -47,20 +59,20 @@ function ResultsPage(props) {
         <InfoRow>
           <div>
             <CustomLabel bold>Fácil</CustomLabel>
-            <CustomLabel>Acertos: 2</CustomLabel>
-            <CustomLabel>Erros: 1</CustomLabel>
+            <CustomLabel>Acertos: {results.EC}</CustomLabel>
+            <CustomLabel>Erros: {results.EW}</CustomLabel>
           </div>
           <VerticalDivider />
           <div>
             <CustomLabel bold>Médio</CustomLabel>
-            <CustomLabel>Acertos: 2</CustomLabel>
-            <CustomLabel>Erros: 1</CustomLabel>
+            <CustomLabel>Acertos: {results.MC}</CustomLabel>
+            <CustomLabel>Erros: {results.MW}</CustomLabel>
           </div>
           <VerticalDivider />
           <div>
             <CustomLabel bold>Difícil</CustomLabel>
-            <CustomLabel>Acertos: 2</CustomLabel>
-            <CustomLabel>Erros: 1</CustomLabel>
+            <CustomLabel>Acertos: {results.HC}</CustomLabel>
+            <CustomLabel>Erros: {results.HW}</CustomLabel>
           </div>
         </InfoRow>
         <BasicButton label='Voltar ao início' onClick={handleExit} />
@@ -71,6 +83,7 @@ function ResultsPage(props) {
 
 const mapStateToProps = ({ ResultsReducer }) => ({
   showingResults: ResultsReducer.showingResults,
+  answerLog: ResultsReducer.answerLog,
 });
 
 export default connect(mapStateToProps)(ResultsPage);

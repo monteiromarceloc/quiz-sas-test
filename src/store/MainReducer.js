@@ -74,7 +74,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case PUSH_QUESTION:
       return {
         ...state,
-        currentQuestion: state.preLoadedQuestion,
+        currentQuestion: {...state.preLoadedQuestion},
         preLoadedQuestion: [],
         questionCounter: state.questionCounter + 1,
         lastAnswer: state.didHit ? 'c' : 'w',
