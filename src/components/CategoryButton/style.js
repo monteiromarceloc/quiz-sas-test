@@ -4,7 +4,8 @@ import { Label } from '../../theme/globalStyle'
 export const ButtonContainer = styled.button`
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-start;
+  justify-content: ${({loading}) => loading ? 'center' : 'flex-start'};
+  align-items: ${({loading}) => loading ? 'center' : undefined};
   margin: 12px;
   height: 104px;
   width: 200px;

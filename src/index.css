@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
   text-align: left;
+  background-color: #E5E5E5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
