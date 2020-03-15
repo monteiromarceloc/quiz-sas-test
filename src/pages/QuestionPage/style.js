@@ -80,3 +80,26 @@ export const CloseIcon = styled.img`
   height: 20px;
   margin-right: 6px;
 `
+
+export const StarIcon = styled.img`
+  height: 10px;
+  margin: 0x;
+`
+
+export const LevelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 86px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgba(52, 60, 88, 0.2);
+`
+
+export const StarsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`

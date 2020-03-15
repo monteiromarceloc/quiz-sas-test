@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
 
-import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer, CloseButton, CloseIcon } from './style';
+import closeimg from '../../assets/x-circle.png'
+import star from '../../assets/star.png'
+import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer, CloseButton, CloseIcon, LevelContainer, StarIcon, StarsContainer } from './style';
 import { BasicButton, SASLoading } from '../../components'
 import { formatText } from '../../utils';
-import closeimg from '../../assets/x-circle.png'
 import { setShowModal, finishGame } from '../../store/MainReducer';
 import { pushAnswerLog, reset } from '../../store/ResultsReducer';
 
@@ -59,7 +60,6 @@ function QuestionPage(props) {
   if (!currentQuestion) return <SASLoading />
 
   const { question, difficulty } = currentQuestion
-  // TODO: difficulty component
 
   return (
     <PageContainer>
@@ -74,7 +74,7 @@ function QuestionPage(props) {
       <QuestionContainer>
         <RowContainer>
           <SimpleText color='black' bold >Questão {questionCounter}</SimpleText>       
-          <SimpleText size='xxs' bold >Dificil</SimpleText>
+          <LevelComponent diff={difficulty} />
         </RowContainer>
           <SimpleText size='sm'>{formatText( question )}</SimpleText>           
           {
@@ -104,3 +104,26 @@ const mapStateToProps = ({ MainReducer, ResultsReducer }) => ({
 });
 
 export default connect(mapStateToProps)(QuestionPage);
+
+function LevelComponent({diff}){
+
+  const diffArr = ['easy', 'medium', 'hard']
+  const levelArray = ['Fácil', 'Médio', 'Difícil']
+  const [starNum, setStarNum] = useState(-1)
+
+  useEffect(()=>{
+    setStarNum(diffArr.indexOf(diff))
+    console.log('starNum: ', starNum)
+  },[diff])
+
+  return <LevelContainer>
+    <StarsContainer>
+      {
+        diffArr.slice(0, starNum+1).map( e => 
+          <StarIcon src={star} resizeMode='contain' />
+        )
+      }
+    </StarsContainer>
+    <SimpleText size='xxs' bold >{levelArray[starNum]}</SimpleText>
+  </LevelContainer>
+}
