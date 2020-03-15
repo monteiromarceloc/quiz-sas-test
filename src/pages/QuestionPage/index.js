@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
 
-import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
+import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer, CloseButton, CloseIcon } from './style';
 import { BasicButton, SASLoading } from '../../components'
 import { formatText } from '../../utils';
-import { setShowModal } from '../../store/MainReducer';
-import { pushAnswerLog } from '../../store/ResultsReducer';
+import closeimg from '../../assets/x-circle.png'
+import { setShowModal, finishGame } from '../../store/MainReducer';
+import { pushAnswerLog, reset } from '../../store/ResultsReducer';
 
 function QuestionPage(props) {
   const { dispatch, currentQuestion, questionCounter, selectedCategory, showingResults } = props
@@ -48,7 +49,13 @@ function QuestionPage(props) {
     setSelectedAnswer(-1)
   }
 
+  const handleClose = () => {
+    dispatch(finishGame())
+    dispatch(reset())
+  }
+
   if (showingResults || questionCounter > 10) return <Redirect to='/results' />
+  if (questionCounter === 0) return <Redirect to='/' />
   if (!currentQuestion) return <SASLoading />
 
   const { question, difficulty } = currentQuestion
@@ -59,7 +66,10 @@ function QuestionPage(props) {
       <RowContainer>
         <ScreenTitle>{selectedCategory.name}</ScreenTitle>           
         <CloseText>{correctAnswer}</CloseText>           
-        <CloseText>Fechar</CloseText>           
+        <CloseButton onClick={handleClose}>
+          <CloseIcon src={closeimg} resizeMode='contain' />
+          <CloseText>Fechar</CloseText>           
+        </CloseButton>
       </RowContainer>
       <QuestionContainer>
         <RowContainer>

@@ -43,6 +43,7 @@ export const AnswerContainer = styled.button`
   padding: 0px 16px;
   margin-bottom: 16px;
   outline: none;
+  cursor: pointer;
 `
 
 export const ScreenTitle = styled(Label)`
@@ -60,4 +61,22 @@ export const CloseText = styled(Label)`
   font-size: ${({theme, size}) => theme.fontSize.xs};
   font-weight: 500;
   color: ${({theme}) => theme.color.gray};
+`
+
+export const CloseButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  width: 75px;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+`
+
+export const CloseIcon = styled.img`
+  height: 20px;
+  margin-right: 6px;
 `

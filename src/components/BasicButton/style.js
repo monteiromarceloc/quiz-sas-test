@@ -15,6 +15,7 @@ export const ButtonContainer = styled.button`
   border: 0;
   border-radius: 8px;
   outline: none;
+  cursor: pointer;
 `
 
 export const ButtonLabel = styled(Label)`

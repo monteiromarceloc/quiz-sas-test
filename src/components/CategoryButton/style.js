@@ -13,7 +13,8 @@ export const ButtonContainer = styled.button`
   border: 1px solid ${({theme}) => theme.color.background};
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
-  outline: none
+  outline: none;
+  cursor: pointer;
 `
 
 export const ButtonLabel = styled(Label)`
