@@ -112,14 +112,13 @@ function LevelComponent({diff}){
 
   useEffect(()=>{
     setStarNum(diffArr.indexOf(diff))
-    console.log('starNum: ', starNum)
-  },[diff])
+  },[diff, diffArr])
 
   return <LevelContainer>
     <StarsContainer>
       {
-        diffArr.slice(0, starNum+1).map( e => 
-          <StarIcon src={star} resizeMode='contain' />
+        diffArr.slice(0, starNum+1).map( (e,i) => 
+          <StarIcon src={star} resizeMode='contain' key={i} />
         )
       }
     </StarsContainer>
