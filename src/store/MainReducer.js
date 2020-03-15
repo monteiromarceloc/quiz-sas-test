@@ -1,7 +1,6 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
 export const SET_LAST_ANSWER = 'SET_LAST_ANSWER';
-export const PUSH_QUESTION = 'PUSH_QUESTION';
 export const SET_SHOW_MODAL = 'SET_SHOW_MODAL';
 export const FINISH_GAME = 'FINISH_GAME';
 
@@ -35,7 +34,6 @@ export const finishGame = () => ({
 const INITIAL_STATE = {
   selectedCategory: {},
   currentQuestion: [],
-  preLoadedQuestion: [],
   questionCounter: 0,
   lastAnswer: '', // c: correct, w: wrong
   showModal: false,

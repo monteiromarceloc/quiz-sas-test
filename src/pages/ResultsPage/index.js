@@ -13,6 +13,7 @@ function ResultsPage(props) {
   const [results, setResults] = useState({})
 
   useEffect(()=>{
+    // TODO: optimize filters below
     const EC = answerLog.filter(e => e.difficulty === 'easy' && e.didHit).length
     const EW = answerLog.filter(e => e.difficulty === 'easy' && !e.didHit).length
     const MC = answerLog.filter(e => e.difficulty === 'medium' && e.didHit).length
@@ -20,7 +21,7 @@ function ResultsPage(props) {
     const HC = answerLog.filter(e => e.difficulty === 'hard' && e.didHit).length
     const HW = answerLog.filter(e => e.difficulty === 'hard' && !e.didHit).length
     setResults({EC, EW, MC, MW, HC, HW, AC: EC+MC+HC, AW: EW+MW+HW})
-  },[])
+  },[answerLog])
 
   const handleExit = () => {
     dispatch(reset())

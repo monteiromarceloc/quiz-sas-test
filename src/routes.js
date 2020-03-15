@@ -13,9 +13,8 @@ import {
   ResultsPage,
 } from './pages'
 
-function App(props){
-  const { showModal, dispatch } = props
-  return( <>
+function App(){
+  return <>
     <Header title='Test Dev Frontend' />
     <AppContent>
       <Switch>
@@ -25,7 +24,7 @@ function App(props){
       </Switch>
     </AppContent>
     <AnswerModal />
-  </>)
+  </>
 }
 
 

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
-import Loader from 'react-loader-spinner'
 
-import { QuizService } from '../../services/api'
 import { ScreenTitle, SimpleText, CloseText, AnswerContainer, PageContainer, QuestionContainer, RowContainer } from './style';
 import { BasicButton, SASLoading } from '../../components'
 import { formatText } from '../../utils';
@@ -12,17 +10,14 @@ import { setShowModal } from '../../store/MainReducer';
 import { pushAnswerLog } from '../../store/ResultsReducer';
 
 function QuestionPage(props) {
-  const { dispatch, currentQuestion, questionCounter, selectedCategory, lastAnswer, showingResults } = props
+  const { dispatch, currentQuestion, questionCounter, selectedCategory, showingResults } = props
   
   const [allAnswers, setAllAnswers] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(-1)
   const [selectedAnswer, setSelectedAnswer] = useState(-1)
 
   useEffect(()=>{
-    formatQuestion();
-  },[currentQuestion])
-
-  const formatQuestion = () => {
+    // Format question
     if(currentQuestion) {
       const { correct_answer, incorrect_answers } = currentQuestion
       const newAnswers = [...incorrect_answers]
@@ -32,7 +27,7 @@ function QuestionPage(props) {
       setAllAnswers(newAnswers)
       // TODO: convert ASCII Codes
     }
-  }
+  },[currentQuestion])
 
   const handleSelect = (index) => () => {
     setSelectedAnswer(index)
@@ -57,6 +52,7 @@ function QuestionPage(props) {
   if (!currentQuestion) return <SASLoading />
 
   const { question, difficulty } = currentQuestion
+  // TODO: difficulty component
 
   return (
     <PageContainer>
@@ -75,7 +71,8 @@ function QuestionPage(props) {
             allAnswers.map((item, index) => 
               <AnswerContainer
                 onClick={handleSelect(index)}
-                highlight={index === selectedAnswer}  
+                highlight={index === selectedAnswer}
+                key={index}  
               >
                 <SimpleText size='sm'>{item}</SimpleText>
               </AnswerContainer>
@@ -93,7 +90,6 @@ const mapStateToProps = ({ MainReducer, ResultsReducer }) => ({
   currentQuestion: MainReducer.currentQuestion[0],
   questionCounter: MainReducer.questionCounter,
   selectedCategory: MainReducer.selectedCategory,
-  lastAnswer: MainReducer.lastAnswer,
   showingResults: ResultsReducer.showingResults,
 });
 

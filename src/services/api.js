@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setNewQuestion, setPreLoadedQuestion } from '../store/MainReducer';
+import { setNewQuestion } from '../store/MainReducer';
 
 const BASE_URL = 'https://opentdb.com'
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner'
 
 import { QuizService } from '../../services/api'
 import { CategoryButton, SASLoading } from '../../components';
@@ -36,10 +35,11 @@ function HomePage(props) {
         ? <SASLoading />
         : <ItemsContainer>
           {
-            categories.map( item =>
+            categories.map( (item, index) =>
               <CategoryButton
                 label={item.name}
                 onClick={handleClick(item)}
+                key={index}
               />
             )
           }
