@@ -1,19 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import wrongIcon from '../../assets/wrong.png'
-import correctIcon from '../../assets/correct.png'
+import wrongIcon from '../../assets/cross.png'
+import correctIcon from '../../assets/tick.png'
 import Modal from '@material-ui/core/Modal';
 import { ModalDialog, ModalIcon, ModalLabel, ModalBox } from './style';
 import BasicButton from '../BasicButton';
-import { setShowModal, pushQuestion } from '../../store/MainReducer'
+import { setShowModal, pushQuestion, finishGame } from '../../store/MainReducer'
+import { setShowResults } from '../../store/ResultsReducer'
 
 function AnswerModal(props) {
-  const { correct, visible, dispatch } = props
+  const { correct, visible, questionCounter, dispatch } = props
 
   const onHide = () => dispatch(setShowModal(false))
 
   const handleNext = () => {
-    dispatch(pushQuestion())
+    if (questionCounter < 3) dispatch(pushQuestion())
+    else {
+      dispatch(finishGame())
+      dispatch(setShowResults())
+    }
     onHide()
   }
 
@@ -42,6 +47,7 @@ const mapStateToProps = ({ MainReducer }) => ({
   lastAnswer: MainReducer.lastAnswer,
   correct: MainReducer.didHit,
   visible: MainReducer.showModal,
+  questionCounter: MainReducer.questionCounter,
 });
 
 export default connect(mapStateToProps)(AnswerModal);

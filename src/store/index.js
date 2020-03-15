@@ -4,6 +4,7 @@ import { persistStore, persistReducer }  from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import MainReducer from './MainReducer';
+import ResultsReducer from './ResultsReducer';
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   MainReducer,
+  ResultsReducer,
   // Add new reducers here
 });
 

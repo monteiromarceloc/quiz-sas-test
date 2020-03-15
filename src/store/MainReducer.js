@@ -3,6 +3,7 @@ export const SET_NEW_QUESTION = 'SET_NEW_QUESTION';
 export const SET_PRE_QUESTION = 'SET_PRE_QUESTION';
 export const PUSH_QUESTION = 'PUSH_QUESTION';
 export const SET_SHOW_MODAL = 'SET_SHOW_MODAL';
+export const FINISH_GAME = 'FINISH_GAME';
 
 export const setCategory = (data) => ({
   type: SET_CATEGORY,
@@ -31,6 +32,10 @@ export const setShowModal = (open, didHit) => ({
   }
 });
 
+export const finishGame = () => ({
+  type: FINISH_GAME,
+});
+
 const INITIAL_STATE = {
   selectedCategory: {},
   currentQuestion: [],
@@ -38,7 +43,7 @@ const INITIAL_STATE = {
   questionCounter: 0,
   lastAnswer: '', // c: correct, w: wrong
   showModal: false,
-  didHit: false,
+  showingResults: false,
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -74,6 +79,11 @@ export default function reducer(state = INITIAL_STATE, action) {
         questionCounter: state.questionCounter + 1,
         lastAnswer: state.didHit ? 'c' : 'w',
       };
+      case FINISH_GAME:
+        return {
+          ...INITIAL_STATE,
+          showingResults: true,
+        }
     default:
       return state;
   }

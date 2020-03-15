@@ -7,7 +7,8 @@ export const ButtonContainer = styled.button`
   align-items: center;
   margin: 12px;
   height: 44px;
-  width: 150px;
+  min-width: 150px;
+  max-width: 177px;
   padding-left: 24px;
   padding-right: 24px;
   background-color: ${({theme}) => theme.color.primary};

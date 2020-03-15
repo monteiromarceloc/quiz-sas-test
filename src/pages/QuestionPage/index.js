@@ -9,7 +9,7 @@ import { formatText } from '../../utils';
 import { setShowModal } from '../../store/MainReducer';
 
 function QuestionPage(props) {
-  const { dispatch, currentQuestion, questionCounter, selectedCategory, lastAnswer } = props
+  const { dispatch, currentQuestion, questionCounter, selectedCategory, lastAnswer, showingResults } = props
   
   const [allAnswers, setAllAnswers] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(-1)
@@ -46,7 +46,7 @@ function QuestionPage(props) {
     if (didHit && lastAnswer === 'c'){
       if (difficulty === 'easy') difficulty = 'medium'
       if (difficulty === 'medium') difficulty = 'hard'
-    } else if (!didHit && lastAnswer === 'w'){
+    } else if (didHit === false && lastAnswer === 'w'){
       if (difficulty === 'medium') difficulty = 'easy'
       if (difficulty === 'hard') difficulty = 'medium'
     }
@@ -57,8 +57,8 @@ function QuestionPage(props) {
     setSelectedAnswer(-1)
   }
 
+  if (showingResults) return <Redirect to='/results' />
   if (!currentQuestion) return <Redirect to='/' />
-  if (questionCounter >= 11) return <Redirect to='/results' />
 
   const { question, difficulty } = currentQuestion
 
@@ -93,11 +93,12 @@ function QuestionPage(props) {
   );
 }
 
-const mapStateToProps = ({ MainReducer }) => ({
+const mapStateToProps = ({ MainReducer, ResultsReducer }) => ({
   currentQuestion: MainReducer.currentQuestion[0],
   questionCounter: MainReducer.questionCounter,
   selectedCategory: MainReducer.selectedCategory,
   lastAnswer: MainReducer.lastAnswer,
+  showingResults: ResultsReducer.showingResults,
 });
 
 export default connect(mapStateToProps)(QuestionPage);
