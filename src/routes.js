@@ -9,7 +9,8 @@ import {
 
 import {
   HomePage,
-  QuestionPage
+  QuestionPage,
+  ResultsPage,
 } from './pages'
 
 function App(props){
@@ -20,6 +21,7 @@ function App(props){
       <Switch>
         <Route exact path='/'><HomePage/></Route>
         <Route exact path='/question'><QuestionPage/></Route>
+        <Route exact path='/results'><ResultsPage/></Route>
       </Switch>
     </AppContent>
     <AnswerModal />

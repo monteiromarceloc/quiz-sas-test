@@ -51,14 +51,15 @@ function QuestionPage(props) {
       if (difficulty === 'hard') difficulty = 'medium'
     }
     console.log(difficulty)
-    
+
     // Preloads question so that next question is ready
     QuizService.getQuestion(dispatch)(selectedCategory.id, difficulty)
     setSelectedAnswer(-1)
   }
 
   if (!currentQuestion) return <Redirect to='/' />
-  
+  if (questionCounter >= 11) return <Redirect to='/results' />
+
   const { question, difficulty } = currentQuestion
 
   return (

@@ -12,12 +12,12 @@ export const QuizService = {
       console.log('getCategorys error: ', error)
     }
   },
-  getQuestion: (dispatch, onSucess, onFailure) => async (id, difficulty='medium') => {
+  getQuestion: (dispatch, onSucess, onFailure) => async (id, difficulty) => {
     try {
-      const response = await axios.get(`${BASE_URL}/api.php?category=${id}&amount=1&difficulty=${difficulty}&type=multiple`);
+      const response = await axios.get(`${BASE_URL}/api.php?category=${id}&amount=1&difficulty=${difficulty || 'medium'}&type=multiple`);
       const { response_code, results } = response.data
       if (response_code === 0) {
-        // If difficulty is not passed, we can presume it is the first question
+        // If difficulty is not a param, we can presume it is the first question
         if (!difficulty) dispatch(setNewQuestion(results))
         else dispatch(setPreLoadedQuestion(results))
         return results[0];
