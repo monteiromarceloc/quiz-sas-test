@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const theme = {
   color: {
@@ -18,24 +18,11 @@ export const theme = {
     sm: '16px',
     xs: '14px',
     xxs: '12px',
-  },
+  }
 }
 
 // responsive https://jsramblings.com/how-to-use-media-queries-with-styled-components/
 // TODO: font-family Avenir
-
-export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto');
-  body {
-    padding: 0;
-    margin: 0;
-    background-color: ${theme.color.background};
-    font-family: Roboto, sans-serif;
-    text-align: left;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-`
 
 export const Label = styled.p`
   color: ${({theme}) => theme.color.text};

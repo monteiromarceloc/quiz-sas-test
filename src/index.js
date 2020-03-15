@@ -9,16 +9,14 @@ import { ThemeProvider } from 'styled-components';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import { store, persistor } from './store'
-import { theme, GlobalStyle } from './theme/globalStyle'
-
-// TODO: update window size: https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+import { theme } from './theme/globalStyle'
+import './index.css'
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
           <App />
         </ThemeProvider>
       </BrowserRouter>
