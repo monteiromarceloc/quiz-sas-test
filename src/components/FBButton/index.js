@@ -3,7 +3,7 @@ import { ButtonContainer, ButtonLabel, FBIcon } from './style'
 import fblogo from '../../assets/firebase.png'
 import SASLoading from '../SASLoading';
 
-function BasicButton(props) {
+function FBButton(props) {
   const { onClick, label='Savar resultado', loading, disabled } = props
   return (
     <ButtonContainer onClick={onClick} disabled={disabled || loading}>
@@ -18,4 +18,4 @@ function BasicButton(props) {
   );
 }
 
-export default BasicButton;
+export default FBButton;

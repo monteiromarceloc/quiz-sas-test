@@ -11,7 +11,7 @@ export const ButtonContainer = styled.button`
   max-width: 177px;
   padding-left: 24px;
   padding-right: 24px;
-  background-color: ${({theme, disabled}) => disabled ? '#C9CCCF' : theme.color.primary};
+  background-color: ${({theme, isDisabled}) => isDisabled ? '#C9CCCF' : theme.color.primary};
   border: 0;
   border-radius: 8px;
   outline: none;

@@ -10,7 +10,7 @@ function CategoryButton({onClick, label='Button'}) {
     onClick()
   }
   return (
-    <ButtonContainer onClick={handleClick} isLoading={loading}>
+    <ButtonContainer onClick={handleClick} isLoading={loading} disabled={loading}>
       {
         loading ? <SASLoading />
         : <ButtonLabel>{label}</ButtonLabel>
