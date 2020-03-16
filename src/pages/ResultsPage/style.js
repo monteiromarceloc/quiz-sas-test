@@ -7,6 +7,9 @@ export const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `
 
 export const ResultsContainer = styled.div`
@@ -14,14 +17,18 @@ export const ResultsContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 0px;
   width: calc(100% - 64px);
   background-color: ${({theme}) => theme.color.white};
   border: 1px solid ${({theme}) => theme.color.background};
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
-  margin: 72px 0px;
+  margin: 64px 0px;
   padding-bottom: 15px;
+  @media (max-width: 750px) {
+    width: 100%;
+    margin: 0;
+    margin-top: -10px;
+  }
 `
 
 export const ResultsHeader = styled.div`

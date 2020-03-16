@@ -7,6 +7,9 @@ export const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 `
 
 export const RowContainer = styled.div`
@@ -49,6 +52,9 @@ export const AnswerContainer = styled.button`
 export const ScreenTitle = styled(Label)`
   font-size: ${({theme}) => theme.fontSize.lg};
   font-weight: 500;
+  @media (max-width: 450px) {
+    margin-left: 8px;
+  }
 `
 
 export const SimpleText = styled(Label)`
@@ -74,6 +80,9 @@ export const CloseButton = styled.button`
   border: 0;
   outline: none;
   cursor: pointer;
+  @media (max-width: 450px) {
+    margin-right: 8px;
+  }
 `
 
 export const CloseIcon = styled.img`

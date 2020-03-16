@@ -22,4 +22,7 @@ export const PageContent = styled.div`
   @media (max-width: 750px) {
     max-width: 500px;
   }
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 `

@@ -64,7 +64,7 @@ function QuestionPage(props) {
   return (
     <PageContainer>
       <RowContainer>
-        <ScreenTitle>{selectedCategory.name}</ScreenTitle>           
+        <ScreenTitle>{selectedCategory.name}</ScreenTitle>          
         <CloseButton onClick={handleClose}>
           <CloseIcon src={closeimg} resizeMode='contain' />
           <CloseText>Fechar</CloseText>           
