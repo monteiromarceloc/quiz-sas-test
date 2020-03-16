@@ -9,7 +9,6 @@ function SASLoading({small}) {
       color={theme.color.white}
       height={30}
       width={30}
-      timeout={3000} //3 secs
     />
   )
   return (
@@ -18,7 +17,6 @@ function SASLoading({small}) {
       color={theme.color.header}
       height={60}
       width={60}
-      timeout={3000} //3 secs
     />
   );
 }

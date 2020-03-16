@@ -5,7 +5,7 @@ export const ButtonContainer = styled.button`
   display: flex;
   flex-direction: column-reverse;
   justify-content: ${({loading}) => loading ? 'center' : 'flex-start'};
-  align-items: ${({loading}) => loading ? 'center' : undefined};
+  align-items: ${({loading}) => loading && 'center'};
   margin: 12px;
   height: 104px;
   width: 200px;

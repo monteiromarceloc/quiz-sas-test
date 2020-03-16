@@ -75,7 +75,7 @@ function QuestionPage(props) {
           <SimpleText color='black' bold >Questão {questionCounter}</SimpleText>       
           <LevelComponent diff={difficulty} />
         </RowContainer>
-          <SimpleText size='sm'>{formatText( question )}</SimpleText>           
+          <SimpleText size='sm'>{formatText(question)}</SimpleText>           
           {
             allAnswers.map((item, index) => 
               <AnswerContainer
@@ -83,7 +83,7 @@ function QuestionPage(props) {
                 highlight={index === selectedAnswer}
                 key={index}  
               >
-                <SimpleText size='sm'>{item}</SimpleText>
+                <SimpleText size='sm'>{formatText(item)}</SimpleText>
               </AnswerContainer>
             )
           }
