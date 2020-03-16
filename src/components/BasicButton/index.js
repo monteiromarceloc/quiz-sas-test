@@ -7,7 +7,7 @@ import SASLoading from '../SASLoading';
 function BasicButton(props) {
   const { onClick, label='Button', icon, loading, disabled } = props
   return (
-    <ButtonContainer onClick={onClick} icon={icon && !loading} disabled={disabled}>
+    <ButtonContainer onClick={onClick} icon={icon && !loading} isDisabled={disabled} disabled={loading || disabled}>
       {
         loading ? <SASLoading small />
         : <>

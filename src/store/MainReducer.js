@@ -41,7 +41,6 @@ const INITIAL_STATE = {
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
-  console.log('redux ', action.type, ': ', action.payload)
   switch (action.type) {
     case SET_CATEGORY:
       return {

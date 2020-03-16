@@ -3,23 +3,24 @@ import { Label } from '../../theme/globalStyle'
 
 export const ButtonContainer = styled.button`
   display: flex;
-  justify-content: ${({icon}) => icon ? 'space-between' : 'center'};
+  justify-content: space-between;
   align-items: center;
   margin: 12px;
   height: 44px;
   min-width: 150px;
-  max-width: 177px;
-  padding-left: 24px;
-  padding-right: 24px;
-  background-color: ${({theme, isDisabled}) => isDisabled ? '#C9CCCF' : theme.color.primary};
+  max-width: 220px;
+  background-color: transparent;
   border: 0;
-  border-radius: 8px;
   outline: none;
   cursor: pointer;
 `
 
 export const ButtonLabel = styled(Label)`
-  color: ${({theme}) => theme.color.white};
+  color: ${({theme}) => theme.color.gray};
   margin: 0;
   font-weight: 500;
+`
+
+export const FBIcon = styled.img`
+  height: 32px;
 `

@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom'
 import { InfoRow, VerticalDivider, NumbersColumn, GrayContainer, RelativeRow, FloatingHeader, HeaderImg, PageContainer, ResultsContainer, ResultsHeader, CustomLabel } from './style';
 import creature from '../../assets/creature.png'
 import { reset } from '../../store/ResultsReducer'
-import { BasicButton } from '../../components';
-
+import { BasicButton, FBButton } from '../../components';
+import fb from '../../services/firebaseCredentials'
 
 function ResultsPage(props) {
   const { dispatch, showingResults, answerLog } = props
@@ -13,18 +13,41 @@ function ResultsPage(props) {
   const [results, setResults] = useState({})
 
   useEffect(()=>{
-    // TODO: optimize filters below
-    const EC = answerLog.filter(e => e.difficulty === 'easy' && e.didHit).length
-    const EW = answerLog.filter(e => e.difficulty === 'easy' && !e.didHit).length
-    const MC = answerLog.filter(e => e.difficulty === 'medium' && e.didHit).length
-    const MW = answerLog.filter(e => e.difficulty === 'medium' && !e.didHit).length
-    const HC = answerLog.filter(e => e.difficulty === 'hard' && e.didHit).length
-    const HW = answerLog.filter(e => e.difficulty === 'hard' && !e.didHit).length
-    setResults({EC, EW, MC, MW, HC, HW, AC: EC+MC+HC, AW: EW+MW+HW})
+    // Formating results
+    let res = {easy:{},medium:{},hard:{}}
+    answerLog.map(e => {
+      res[e.difficulty][e.didHit ? 'correct' : 'wrong'] = (res[e.difficulty][e.didHit ? 'correct' : 'wrong'] + 1) || 1 
+      res[e.didHit ? 'correct' : 'wrong'] = (res[e.didHit ? 'correct' : 'wrong'] + 1) || 1
+      return true;
+    })
+    setResults(res)
   },[answerLog])
 
   const handleExit = () => {
     dispatch(reset())
+  }
+
+  const handleSave = () => {
+
+    // Check if user is authenticated
+    const user = fb.auth().currentUser;
+    if (user != null) {
+      const uid = user.uid;
+      const key = fb.database().ref('users/' + uid).push().key
+      fb.database().ref('users/' + uid + '/history/' + key).set(results);
+    } else {
+      
+      // Authenticates user
+      const provider = new fb.auth.GoogleAuthProvider();
+      fb.auth().signInWithPopup(provider).then(function(result) {
+        const { uid } = result.user;
+        const key = fb.database().ref('users/' + uid).push().key
+        fb.database().ref('users/' + uid + '/history/' + key).set(results);
+      
+      }).catch(function(error) {
+        console.log('Fb auth error: ', error)
+      });
+    }
   }
 
   if (!showingResults) return <Redirect to='/' />
@@ -48,11 +71,11 @@ function ResultsPage(props) {
 
         <GrayContainer>
           <NumbersColumn>
-  <CustomLabel size='xl' bold >{results.AC}</CustomLabel>
+            <CustomLabel size='xl' bold >{results.correct || 0}</CustomLabel>
             <CustomLabel>acertos</CustomLabel>
           </NumbersColumn>
           <NumbersColumn>
-            <CustomLabel size='xl' bold >{results.AW}</CustomLabel>
+            <CustomLabel size='xl' bold >{results.wrong || 0}</CustomLabel>
             <CustomLabel>erros</CustomLabel>
           </NumbersColumn>
         </GrayContainer>
@@ -60,23 +83,24 @@ function ResultsPage(props) {
         <InfoRow>
           <div>
             <CustomLabel bold>Fácil</CustomLabel>
-            <CustomLabel>Acertos: {results.EC}</CustomLabel>
-            <CustomLabel>Erros: {results.EW}</CustomLabel>
+            <CustomLabel>Acertos: {results.easy?.correct || 0}</CustomLabel>
+            <CustomLabel>Erros: {results.easy?.wrong || 0}</CustomLabel>
           </div>
           <VerticalDivider />
           <div>
             <CustomLabel bold>Médio</CustomLabel>
-            <CustomLabel>Acertos: {results.MC}</CustomLabel>
-            <CustomLabel>Erros: {results.MW}</CustomLabel>
+            <CustomLabel>Acertos: {results.medium?.correct || 0}</CustomLabel>
+            <CustomLabel>Erros: {results.medium?.wrong || 0}</CustomLabel>
           </div>
           <VerticalDivider />
           <div>
             <CustomLabel bold>Difícil</CustomLabel>
-            <CustomLabel>Acertos: {results.HC}</CustomLabel>
-            <CustomLabel>Erros: {results.HW}</CustomLabel>
+            <CustomLabel>Acertos: {results.hard?.correct || 0}</CustomLabel>
+            <CustomLabel>Erros: {results.hard?.wrong || 0}</CustomLabel>
           </div>
         </InfoRow>
         <BasicButton label='Voltar ao início' onClick={handleExit} />
+        <FBButton onClick={handleSave} />
       </ResultsContainer>
     </PageContainer>
   );
